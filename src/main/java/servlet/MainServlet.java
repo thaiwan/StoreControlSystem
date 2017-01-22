@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/list")
+@WebServlet("/stores")
 public class MainServlet extends HttpServlet{
 
     @EJB
@@ -25,7 +25,7 @@ public class MainServlet extends HttpServlet{
 
         req.setAttribute("stores", allStores);
 
-        req.getRequestDispatcher("/list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/stores.jsp").forward(req, resp);
 
     }
 

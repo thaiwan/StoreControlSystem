@@ -4,6 +4,7 @@ package servlet;
 
 import bean.StoreBean;
 import entity.Store;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -26,12 +27,12 @@ public class AddAndEditStoreServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         if(req.getParameter("edit") != null){
-            long id = Long.valueOf(req.getParameter("edit"));
+            int id = Integer.valueOf(req.getParameter("edit"));
             Store store = storeBean.get(id);
             req.setAttribute("store", store);
         }
 
-        req.getRequestDispatcher("/add.jsp").forward(req, resp);
+        req.getRequestDispatcher("/addedit.jsp").forward(req, resp);
     }
 
     @Override
@@ -42,8 +43,8 @@ public class AddAndEditStoreServlet extends HttpServlet {
 
         String address = req.getParameter("address");
 
-        if(req.getParameter("id") != ""){
-            long id = Long.valueOf(req.getParameter("id"));
+        if(StringUtils.isNotEmpty(req.getParameter("id"))) {
+            int id = Integer.valueOf(req.getParameter("id"));
             Store store = storeBean.get(id);
             store.setAddress(address);
 
@@ -52,6 +53,6 @@ public class AddAndEditStoreServlet extends HttpServlet {
             storeBean.add(new Store(address));
         }
 
-        resp.sendRedirect("list");
+        resp.sendRedirect("stores");
     }
 }

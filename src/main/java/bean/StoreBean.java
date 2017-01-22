@@ -18,7 +18,7 @@ public class StoreBean {
         return em.merge(store);
     }
 
-    public Store get(long id){
+    public Store get(int id){
         return em.find(Store.class, id);
     }
 
@@ -27,7 +27,7 @@ public class StoreBean {
         add(store);
     }
 
-    public void delete(long id){
+    public void delete(int id){
         em.remove(get(id));
     }
 

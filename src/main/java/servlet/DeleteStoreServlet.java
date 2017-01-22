@@ -1,6 +1,7 @@
 package servlet;
 
 import bean.StoreBean;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,10 +20,10 @@ public class DeleteStoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        if(req.getParameter("id") != null && req.getParameter("id") != ""){
-            long id = Long.valueOf(req.getParameter("id"));
+        if(StringUtils.isNotEmpty(req.getParameter("id"))){
+            int id = Integer.valueOf(req.getParameter("id"));
             storeBean.delete(id);
         }
-        resp.sendRedirect("list");
+        resp.sendRedirect("stores");
     }
 }

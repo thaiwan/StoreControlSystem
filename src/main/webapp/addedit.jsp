@@ -1,3 +1,4 @@
+<%--@elvariable id="store" type="entity.Store"--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,9 +8,9 @@
 
 <form action="add" method="post">
     <label for="address">Введите адрес:
-        <input type="text" id="address" value="${store.name}" name="name" />
+        <input type="text" id="address" value="${store.address}" name="address" />
     </label>  <br />
-    <input type="hidden" name="id" value="${store.id}" />
+    <input type="hidden" name="id" value="${store.storeId}" />
     <input type="submit" value="Сохранить" />
 </form>
 
