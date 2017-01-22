@@ -1,7 +1,7 @@
-package servlet;
+package servlet.product;
 
-import bean.StoreBean;
-import org.apache.commons.lang3.StringUtils;
+import bean.ProductBean;
+import entity.Product;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,20 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/delete")
-public class DeleteStoreServlet extends HttpServlet {
+@WebServlet("/products")
+public class ListProductsServlet extends HttpServlet {
 
     @EJB
-    private StoreBean storeBean;
+    private ProductBean productBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        if(StringUtils.isNotEmpty(req.getParameter("id"))){
-            int id = Integer.valueOf(req.getParameter("id"));
-            storeBean.delete(id);
-        }
-        resp.sendRedirect("stores");
+        List<Product> allProducts = productBean.getAll();
+
+        req.setAttribute("products", allProducts);
+
+        req.getRequestDispatcher("/products.jsp").forward(req, resp);
+
     }
+
 }

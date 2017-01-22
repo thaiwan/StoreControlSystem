@@ -1,4 +1,4 @@
-package servlet;
+package servlet.store;
 
 
 
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/add")
+@WebServlet("/addstore")
 public class AddAndEditStoreServlet extends HttpServlet {
 
     @EJB
@@ -32,7 +32,7 @@ public class AddAndEditStoreServlet extends HttpServlet {
             req.setAttribute("store", store);
         }
 
-        req.getRequestDispatcher("/addedit.jsp").forward(req, resp);
+        req.getRequestDispatcher("/addeditstore.jsp").forward(req, resp);
     }
 
     @Override
@@ -47,7 +47,6 @@ public class AddAndEditStoreServlet extends HttpServlet {
             int id = Integer.valueOf(req.getParameter("id"));
             Store store = storeBean.get(id);
             store.setAddress(address);
-
             storeBean.update(store);
         } else{
             storeBean.add(new Store(address));

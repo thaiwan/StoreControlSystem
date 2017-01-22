@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="add" method="post">
+<form action="addstore" method="post">
     <label for="address">Введите адрес:
         <input type="text" id="address" value="${store.address}" name="address" />
     </label>  <br />
