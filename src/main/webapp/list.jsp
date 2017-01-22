@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Список пользователей</title>
+    <title>Список магазинов</title>
 </head>
 <body>
 
-<h3>Все пользователи:</h3>(<a href="add">добавить</a>)
+<h3>Все магазины:</h3>(<a href="add">добавить</a>)
 <ol>
     <c:forEach items="${stores}" var="store">
         <li>

@@ -2,10 +2,12 @@ package entity;
 
 import javax.persistence.*;
 
+@Entity(name = "store")
+@NamedQuery(name = "Store.getAll", query = "SELECT s from store s")
 public class Store {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "store_id")
     private int storeId;
 
@@ -15,6 +17,13 @@ public class Store {
     public Store(int storeId, String address) {
         this.storeId = storeId;
         this.address = address;
+    }
+
+    public Store(String address) {
+        this.address = address;
+    }
+
+    public Store() {
     }
 
     public int getStoreId() {

@@ -1,7 +1,6 @@
 package servlet;
 
 import bean.StoreBean;
-import entity.Store;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/list")
-public class MainServlet extends HttpServlet{
+@WebServlet("/delete")
+public class DeleteStoreServlet extends HttpServlet {
 
     @EJB
     private StoreBean storeBean;
@@ -21,12 +19,10 @@ public class MainServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Store> allStores = storeBean.getAll();
-
-        req.setAttribute("stores", allStores);
-
-        req.getRequestDispatcher("/list.jsp").forward(req, resp);
-
+        if(req.getParameter("id") != null && req.getParameter("id") != ""){
+            long id = Long.valueOf(req.getParameter("id"));
+            storeBean.delete(id);
+        }
+        resp.sendRedirect("list");
     }
-
 }
