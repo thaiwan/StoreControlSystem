@@ -3,10 +3,17 @@
 <html>
 <head>
     <title>Список транзакций</title>
+    <link href="css/mystyle.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-
-<h3>Все магазины:</h3>(<a href="addstore">добавить</a>)
+<ul>
+    <li><a href="stores">Магазины</a></li>
+    <li><a href="products">Продукты</a></li>
+    <li><a class="active" href="transactions">Транзакции</a></li>
+    <li style="float:right"><a href="about.jsp">About</a></li>
+</ul>
+<h3>Все транзакции:</h3>(<a href="addtransaction">добавить</a>)
 <ol>
     <%--@elvariable id="transactions" type="java.util.List"--%>
     <c:forEach items="${transactions}" var="transaction">

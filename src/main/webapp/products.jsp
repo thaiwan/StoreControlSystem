@@ -3,9 +3,15 @@
 <html>
 <head>
     <title>Список продуктов</title>
+    <link href="css/mystyle.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<ul>
+    <li><a href="stores">Магазины</a></li>
+    <li><a class="active" href="products">Продукты</a></li>
+    <li><a href="transactions">Транзакции</a></li>
+    <li style="float:right"><a href="about.jsp">About</a></li>
+</ul>
 <h3>Все продукты:</h3>(<a href="addproduct">добавить</a>)
 <ol>
     <%--@elvariable id="products" type="java.util.List"--%>
