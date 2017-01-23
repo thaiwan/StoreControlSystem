@@ -1,5 +1,7 @@
 package servlet.transaction;
 
+import bean.ProductBean;
+import bean.StoreBean;
 import bean.TransactionBean;
 import entity.Transaction;
 import org.apache.commons.lang3.StringUtils;
@@ -12,12 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @WebServlet("/addtransaction")
 public class AddAndEditTransactionServlet extends HttpServlet {
 
     @EJB
     private TransactionBean transactionBean;
+    @EJB
+    private StoreBean storeBean;
+    @EJB
+    private ProductBean productBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -30,40 +38,47 @@ public class AddAndEditTransactionServlet extends HttpServlet {
             Transaction transaction = transactionBean.get(id);
             req.setAttribute("transaction", transaction);
         }
-
+        req.setAttribute("stores", storeBean.getAll());
+        req.setAttribute("products", productBean.getAll());
         req.getRequestDispatcher("/addedittransaction.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        resp.setContentType("text/html");
-        req.setCharacterEncoding("UTF-8");
+        try {
+            resp.setContentType("text/html");
+            req.setCharacterEncoding("UTF-8");
 
-        String store = req.getParameter("store");
-        String transactionDate = req.getParameter("transactionDate");
-        String count = req.getParameter("count");
-        String cost = req.getParameter("cost");
-        String productId = req.getParameter("product_id");
 
-        if(StringUtils.isNotEmpty(req.getParameter("id"))) {
-            int id = Integer.valueOf(req.getParameter("id"));
-            Transaction transaction = transactionBean.get(id);
-            transaction.setStoreId(Integer.valueOf(store));
-            transaction.setTransactionDate(Date.valueOf(transactionDate));
-            transaction.setCount(Integer.valueOf(count));
-            transaction.setCost(Integer.valueOf(cost));
-            transaction.setProductId(Integer.valueOf(productId));
-            transactionBean.update(transaction);
-        } else{
-            transactionBean.add(new Transaction(
-                    Integer.valueOf(store),
-                    Date.valueOf(transactionDate),
-                    Integer.valueOf(count),
-                    Integer.valueOf(cost),
-                    Integer.valueOf(productId)));
+            Date date = new Date(new SimpleDateFormat("yyyy-MM-dd").
+                    parse(req.getParameter("transactionDate")).getTime());
+            int storeId = Integer.valueOf(req.getParameter("storeId"));
+            int count = Integer.valueOf(req.getParameter("count"));
+            int productId = Integer.valueOf(req.getParameter("productId"));
+            int cost = Integer.valueOf(req.getParameter("cost"));
+
+            if(StringUtils.isNotEmpty(req.getParameter("id"))) {
+                int id = Integer.valueOf(req.getParameter("id"));
+                Transaction transaction = transactionBean.get(id);
+                transaction.setStoreId(storeId);
+                transaction.setTransactionDate(date);
+                transaction.setCount(count);
+                transaction.setCost(cost);
+                transaction.setProductId(productId);
+                transactionBean.update(transaction);
+            } else{
+                transactionBean.add(new Transaction(
+                        storeId,
+                        date,
+                        count,
+                        cost,
+                        productId));
+            }
+
+            resp.sendRedirect("transactions");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
-
-        resp.sendRedirect("transactions");
     }
 }

@@ -18,7 +18,8 @@
     <%--@elvariable id="transactions" type="java.util.List"--%>
     <c:forEach items="${transactions}" var="transaction">
         <li>
-            ID: ${transaction.transactionId} | Адрес: ${transaction.count}
+            ID: ${transaction.transactionId} | Магазин: ${transaction.storeId} | Продукт: ${transaction.productId} |
+            Дата: ${transaction.transactionDate} | Количество: ${transaction.count} | Стоимость: ${transaction.cost}
             <a href="addtransaction?edit=${transaction.transactionId}">(редактировать</a> | <a href="deletetransaction?id=${transaction.transactionId}">удалить)</a>
         </li>
     </c:forEach>
