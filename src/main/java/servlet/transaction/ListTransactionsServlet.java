@@ -1,5 +1,7 @@
 package servlet.transaction;
 
+import bean.ProductBean;
+import bean.StoreBean;
 import bean.TransactionBean;
 import entity.Transaction;
 
@@ -16,12 +18,15 @@ import java.util.List;
 public class ListTransactionsServlet extends HttpServlet {
     @EJB
     private TransactionBean transactionBean;
+    @EJB
+    private ProductBean productBean;
+    @EJB
+    private StoreBean storeBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<Transaction> allTransactions = transactionBean.getAll();
-
         req.setAttribute("transactions", allTransactions);
 
         req.getRequestDispatcher("/transactions.jsp").forward(req, resp);

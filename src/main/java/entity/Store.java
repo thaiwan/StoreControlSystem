@@ -1,6 +1,10 @@
 package entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.Set;
+
 
 @Entity(name = "store")
 @NamedQuery(name = "Store.getAll", query = "SELECT s from store s")
@@ -14,9 +18,21 @@ public class Store {
     @Column(name = "address")
     private String address;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "store")
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+    private Set<Transaction> transactions;
+
     public Store(int storeId, String address) {
         this.storeId = storeId;
         this.address = address;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public Store(String address) {

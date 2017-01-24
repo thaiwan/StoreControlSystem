@@ -15,13 +15,14 @@
 </ul>
 <h3>Все транзакции:</h3>(<a href="addtransaction">добавить</a>)
 <ol>
-    <%--@elvariable id="transactions" type="java.util.List"--%>
-    <c:forEach items="${transactions}" var="transaction">
-        <li>
-            ID: ${transaction.transactionId} | Магазин: ${transaction.storeId} | Продукт: ${transaction.productId} |
-            Дата: ${transaction.transactionDate} | Количество: ${transaction.count} | Стоимость: ${transaction.cost}
-            <a href="addtransaction?edit=${transaction.transactionId}">(редактировать</a> | <a href="deletetransaction?id=${transaction.transactionId}">удалить)</a>
-        </li>
+            <%--@elvariable id="transactions" type="java.util.List"--%>
+            <%--@elvariable id="transaction" type="entity.Transaction"--%>
+            <c:forEach items="${transactions}" var="transaction">
+                <li>
+                    ID: ${transaction.transactionId} | Магазин: ${transaction.store.address} | Продукт: ${transaction.product.name} |
+                    Дата: ${transaction.transactionDate} | Количество: ${transaction.count} | Стоимость: ${transaction.cost}
+                    <a href="addtransaction?edit=${transaction.transactionId}">(редактировать</a> | <a href="deletetransaction?id=${transaction.transactionId}">удалить)</a>
+                </li>
     </c:forEach>
 </ol>
 

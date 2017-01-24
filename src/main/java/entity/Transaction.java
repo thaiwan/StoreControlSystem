@@ -12,8 +12,9 @@ public class Transaction {
     @Column(name = "transaction_id")
     private int transactionId;
 
-    @Column(name = "store")
-    private int storeId;
+    @ManyToOne
+    @JoinColumn (name = "store")
+    private Store store;
 
     @Column(name = "transaction_date")
     private Date transactionDate;
@@ -24,29 +25,22 @@ public class Transaction {
     @Column(name = "cost")
     private int cost;
 
-    @Column(name = "product_id")
-    private int productId;
+    @ManyToOne
+    @JoinColumn (name = "product_id")
+    private Product product;
 
     public Transaction() {
 
     }
 
-    public Transaction(int storeId, Date transactionDate, int count, int cost, int productId) {
-        this.storeId = storeId;
+    public Transaction(Store store, Date transactionDate, int count, int cost, Product product) {
+        this.store = store;
         this.transactionDate = transactionDate;
         this.count = count;
         this.cost = cost;
-        this.productId = productId;
+        this.product = product;
     }
 
-    public int getStoreId() {
-
-        return storeId;
-    }
-
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
-    }
 
     public Date getTransactionDate() {
         return transactionDate;
@@ -72,19 +66,27 @@ public class Transaction {
         this.cost = cost;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
     public int getTransactionId() {
         return transactionId;
     }
 
     public void setTransactionId(int transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

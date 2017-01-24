@@ -3,6 +3,8 @@ package servlet.transaction;
 import bean.ProductBean;
 import bean.StoreBean;
 import bean.TransactionBean;
+import entity.Product;
+import entity.Store;
 import entity.Transaction;
 import org.apache.commons.lang3.StringUtils;
 
@@ -58,22 +60,25 @@ public class AddAndEditTransactionServlet extends HttpServlet {
             int productId = Integer.valueOf(req.getParameter("productId"));
             int cost = Integer.valueOf(req.getParameter("cost"));
 
+            Store store = storeBean.get(storeId);
+            Product product = productBean.get(productId);
+
             if(StringUtils.isNotEmpty(req.getParameter("id"))) {
                 int id = Integer.valueOf(req.getParameter("id"));
                 Transaction transaction = transactionBean.get(id);
-                transaction.setStoreId(storeId);
+                transaction.setStore(store);
                 transaction.setTransactionDate(date);
                 transaction.setCount(count);
                 transaction.setCost(cost);
-                transaction.setProductId(productId);
+                transaction.setProduct(product);
                 transactionBean.update(transaction);
             } else{
                 transactionBean.add(new Transaction(
-                        storeId,
+                        store,
                         date,
                         count,
                         cost,
-                        productId));
+                        product));
             }
 
             resp.sendRedirect("transactions");
