@@ -18,14 +18,14 @@
 <h3>Добавление | редактирование транзакции</h3>
 <form action="addtransaction" method="post">
     <label for="storedropdown">Выберите магазин: <br>
-        <select id="storedropdown" name="storeId">
+        <select id="storedropdown" name="storeId" required>
             <c:forEach items="${stores}" var="store">
                 <option name="storeId" id="storeId" value="${store.storeId}">${store.address}</option>
             </c:forEach>
         </select>
     </label><br>
     <label for="productdropdown">Выберите тип продукта: <br>
-        <select id="productdropdown" name="productId">
+        <select id="productdropdown" name="productId" required>
             <c:forEach items="${products}" var="product">
                 <option name="productId" id="productId" value="${product.productId}">${product.name}</option>
             </c:forEach>
@@ -33,13 +33,13 @@
     </label><br>
     <label for="transactionDate">Выберите дату: <br>
         <%--<input type="text" id="transactionDate" value="${transaction.transactionDate}" name="transactionDate" />--%>
-        <input type="date" name="transactionDate" id="transactionDate" value="${transaction.transactionDate}">
+        <input type="date" name="transactionDate" id="transactionDate" value="${transaction.transactionDate}" required/>
     </label>  <br />
     <label for="count">Выберите количество продукта: <br>
-        <input type="number" id="count" value="${transaction.count}" name="count" />
+        <input type="number" id="count" value="${transaction.count}" name="count" required/>
     </label>  <br />
     <label for="cost">Выберите стоимость: <br>
-        <input type="number" id="cost" value="${transaction.cost}" name="cost" />
+        <input type="number" id="cost" value="${transaction.cost}" name="cost" required/>
     </label>  <br />
     <input type="hidden" name="id" value="${transaction.transactionId}" />
     <input type="submit" value="Сохранить" />

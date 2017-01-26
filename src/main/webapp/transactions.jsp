@@ -7,8 +7,9 @@
         <script src='js/tablesort.min.js'></script>
         <script src='js/tablesort.number.js'></script>
         <script src='js/tablesort.date.js'></script>
+        <script src='js/filtering.js'></script>
     </head>
-    <body>
+    <body onload="sortAndSum()">
         <ul>
             <li><a href="stores">Магазины</a></li>
             <li><a href="products">Продукты</a></li>
@@ -20,6 +21,15 @@
         <br>
         <%--@elvariable id="transactions" type="java.util.List"--%>
         <%--@elvariable id="transaction" type="entity.Transaction"--%>
+        <input type="text" id="productFilter" onkeyup="filterProcessingFunction()" placeholder="Фильтровать по продуктам...">
+        <br>
+        C:
+        <br>
+        <input title="С" type="date" id="fromDateFilter" onchange="filterProcessingFunction()">
+        <br>
+        По:
+        <br>
+        <input title="По" type="date" id="toDateFilter" onchange="filterProcessingFunction()">
         <table id="table-id">
             <thead>
                 <tr>
@@ -40,15 +50,14 @@
                         <td>${transaction.product.name}</td>
                         <td>${transaction.transactionDate}</td>
                         <td>${transaction.count}</td>
-                        <td>${transaction.cost}</td>
+                        <td class="countable">${transaction.cost}</td>
                         <td><a href="addtransaction?edit=${transaction.transactionId}"><img src="icons/edit.png"></a>
                             <a href="deletetransaction?id=${transaction.transactionId}"><img src="icons/delete.png"></a></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <script>
-            new Tablesort(document.getElementById('table-id'));
-        </script>
+        <br>
+        <div class="totalcostcontainer"><b>Общая стоимость: </b><span id="totalcost"></span></div>
     </body>
 </html>

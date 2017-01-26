@@ -15,7 +15,7 @@
 <h3>Добавление | редактирование продукта</h3>
 <form action="addproduct" method="post">
     <label for="name">Введите наименование: <br>
-        <input type="text" id="name" value="${product.name}" name="name" />
+        <input type="text" id="name" value="${product.name}" name="name" required/>
     </label>  <br />
     <input type="hidden" name="id" value="${product.productId}" />
     <input type="submit" value="Сохранить" />

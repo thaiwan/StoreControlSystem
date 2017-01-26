@@ -15,7 +15,7 @@
 <h3>Добавление | редактирование магазина</h3>
 <form action="addstore" method="post">
     <label for="address">Введите адрес: <br>
-        <input type="text" id="address" value="${store.address}" name="address" />
+        <input type="text" id="address" value="${store.address}" name="address" required/>
     </label>  <br/>
     <input type="hidden" name="id" value="${store.storeId}" />
     <input type="submit" value="Сохранить" />
